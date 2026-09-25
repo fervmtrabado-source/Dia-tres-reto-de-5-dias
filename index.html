@@ -372,7 +372,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 
 <div class="nav">
   <div class="inner">
-    <button class="ghost" id="back" type="button" style="display:none">Atr&aacute;s</button>
+    <button class="ghost" id="back" type="button">&#8592; Atr&aacute;s</button>
     <button class="act" id="next" type="button">Ver mi lista</button>
   </div>
 </div>
@@ -487,15 +487,22 @@ function pinta(){
   $("next").textContent = n<META ? ("Faltan "+(META-n)) : "Ver mi lista";
 }
 
+function volverPortada(){
+  $("flow").classList.remove("on");
+  $("cover").style.display="flex";
+  window.scrollTo(0,0);
+}
 function show(){
   $("s1").classList.toggle("on",step===1);
   $("s2").classList.toggle("on",step===2);
-  $("back").style.display = step===1?"none":"block";
   $("next").style.display = step===1?"block":"none";
   window.scrollTo(0,0);
 }
 $("next").addEventListener("click",function(){ if(items.length<META)return; step=2; resumen(); show(); });
-$("back").addEventListener("click",function(){ step=1; show(); });
+$("back").addEventListener("click",function(){
+  if(step===1){ volverPortada(); return; }
+  step=1; show();
+});
 
 function porCat(){
   var out=[];
