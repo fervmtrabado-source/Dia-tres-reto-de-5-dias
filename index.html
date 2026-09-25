@@ -194,12 +194,17 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 
 
 /* ---- Día 3 ---- */
-.cats{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.cats::-webkit-scrollbar{display:none}
-.cats button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);
-  border-radius:999px;padding:10px 15px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
-.cats button[aria-pressed="true"]{background:linear-gradient(135deg,var(--rose),var(--plum2));color:#fff;border-color:transparent}
-.cats button .n{display:inline-block;margin-left:6px;font-weight:700;opacity:.75}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:2px 0 14px}
+.cats button{position:relative;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:14px;padding:13px 34px 13px 13px;font:inherit;font-size:14px;font-weight:500;
+  cursor:pointer;text-align:left;line-height:1.25;min-height:60px;display:flex;align-items:center}
+.cats button[aria-pressed="true"]{background:linear-gradient(135deg,var(--rose),var(--plum2));color:#fff;border-color:transparent;
+  box-shadow:0 10px 20px -12px rgba(74,43,99,.8)}
+.cats button .n{position:absolute;top:8px;right:8px;min-width:22px;height:22px;border-radius:11px;
+  background:var(--lila-l);color:var(--lila);font-size:12px;font-weight:700;
+  display:none;align-items:center;justify-content:center;padding:0 6px}
+.cats button .n.has{display:flex}
+.cats button[aria-pressed="true"] .n{background:rgba(255,255,255,.28);color:#fff}
 .addrow{display:flex;gap:8px;align-items:stretch}
 .addrow input{flex:1}
 .addrow button{flex:0 0 58px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--rose),var(--plum2));
@@ -476,6 +481,7 @@ function pinta(){
     var id=badges[k].getAttribute("data-n");
     var c=items.filter(function(x){return x.c===id}).length;
     badges[k].textContent = c?c:"";
+    badges[k].className = c ? "n has" : "n";
   }
   $("next").disabled = n<META;
   $("next").textContent = n<META ? ("Faltan "+(META-n)) : "Ver mi lista";
